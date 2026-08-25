@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AKASH MANOKARAN | macOS Terminal Portfolio & Engineering Portal</title>
+  <meta name="description" content="Portfolio of AKASH MANOKARAN - B.Tech AI & Data Science Engineer at SKCET, Full-Stack + IoT Developer, SIH 2025, 92.8% Diploma Ranker.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Press+Start+2P&family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="crt-active">
+
+  <!-- Desktop Ambient Canvas & Overlays -->
+  <div class="desktop-wallpaper"></div>
+  <div class="grid-background"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <div class="crt-overlay" id="crt-layer"></div>
+
+  <!-- CLI Notification Toast -->
+  <div class="cli-response-toast" id="cli-toast"></div>
+
+  <!-- =========================================================================
+       MOCK macOS WINDOW CONTAINER
+       ========================================================================= -->
+  <div class="mac-window-wrapper">
+    <div class="mac-window" id="mac-window-elem">
+      
+      <!-- macOS Title Bar (Chrome) -->
+      <header class="title-bar" id="mac-title-bar">
+        <!-- Traffic Light Buttons -->
+        <div class="traffic-lights">
+          <button class="light close" id="btn-close" title="Close Session" aria-label="Close"></button>
+          <button class="light minimize" id="btn-minimize" title="Minimize Window" aria-label="Minimize"></button>
+          <button class="light maximize" id="btn-maximize" title="Toggle Fullscreen" aria-label="Maximize"></button>
+        </div>
+
+        <!-- Centered Window Title -->
+        <div class="title" id="window-title-text">
+          <i class="fas fa-terminal"></i> akash@macbook-pro: ~ (zsh) — 100×30
+        </div>
+
+        <!-- Right Quick Controls & Light/Dark Theme Switcher -->
+        <div class="title-bar-actions">
+          <button class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Switch Dark / Light Mode">
+            <i class="fas fa-moon" id="theme-toggle-icon"></i>
+            <span id="theme-toggle-label">Dark Mode</span>
+          </button>
+          <div class="page-badge-pill" id="hud-page-counter">PAGE 01 / 10</div>
+          <button class="title-action-btn" id="sfx-toggle-btn" title="Toggle Sound FX">
+            <i class="fas fa-volume-high"></i>
+          </button>
+          <button class="title-action-btn" id="crt-toggle-btn" title="Toggle CRT Overlay">
+            <i class="fas fa-tv"></i>
+          </button>
+          <button class="title-action-btn" id="matrix-toggle-btn" title="Toggle Matrix Rain">
+            <i class="fas fa-code"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- macOS Terminal Window Content (Full-Page Snap Scroll Container) -->
+      <div class="terminal-content" id="terminal-content">
+        
+        <!-- 10-Dot Vertical Navigation Rail (Inside Window on Right Edge) -->
+        <nav class="nav-rail" aria-label="Page Navigation">
+          <div class="nav-rail-track"></div>
+          <button class="dot-btn active" data-page="1" aria-label="Page 1: Home & Hero">
+            <span class="dot"></span>
+            <span class="dot-tooltip">[01] SYSTEM BOOT</span>
+          </button>
+          <button class="dot-btn" data-page="2" aria-label="Page 2: whoami (About Me)">
+            <span class="dot"></span>
+            <span class="dot-tooltip">[02] whoami // ABOUT ME</span>
+          </button>
+          <button class="dot-btn" data-page="3" aria-label="Page 3: cat tech_stack.json">
+            <span class="dot"></span>
+            <span class="dot-tooltip">[03] cat tech_stack.json</span>
+          </button>
+          <button class="dot-btn" data-page="4" aria-label="Page 4: GitHub & LeetCode Contributions">
+            <span class="dot"></span>
+            <span class="dot-tooltip">[04] GITHUB & LEETCODE</span>
+          </button>
+          <button class="dot-btn" data-page="5" aria-label="Page 5: Featured Project 01">
+            <span class="dot"></span>
+            <span class="dot-tooltip">[05] PRJ // 01 (DATA & WEB)</span>
+          </button>
+          <button class="dot-btn" data-page="6" aria-label="Page 6: IoT Vital Telemetry">
+            <span class="dot"></span>
+            <span class="dot-tooltip">[06] PRJ // 02 (IOT HEALTH)</span>
+          </button>
+          <button class="dot-btn" data-page="7" aria-label="Page 7: SIH 2025 Digitizer">
+            <span class="dot"></span>
+            <span class="dot-tooltip">[07] PRJ // 03 (SIH 2025)</span>
+          </button>
+          <button class="dot-btn" data-page="8" aria-label="Page 8: Machine Learning Predictor">
+            <span class="dot"></span>
+            <span class="dot-tooltip">[08] PRJ // 04 (AI & ML)</span>
+          </button>
+          <button class="dot-btn" data-page="9" aria-label="Page 9: Resume & CV">
+            <span class="dot"></span>
+            <span class="dot-tooltip">[09] RESUME // CV HUB</span>
+          </button>
+          <button class="dot-btn" data-page="10" aria-label="Page 10: Contact & Message">
+            <span class="dot"></span>
+            <span class="dot-tooltip">[10] CONTACT // CONNECT</span>
+          </button>
+        </nav>
+
+        <!-- ===================================================================
+             PAGE 01: HOME / SYSTEM BOOT & TERMINAL HERO
+             =================================================================== -->
+        <section class="page active" id="page-1" data-page-num="1">
+          <div class="page-inner">
+            <div class="hero-grid">
+              <div class="hero-main-col">
+                <div class="terminal-meta-tag">
+                  <span class="pulse-light"></span>
+                  <code>zsh -- user: akash.manokaran // terminal environment ready</code>
+                </div>
+
+                <h1 class="hero-title-pixel">
+                  AKASH MANOKARAN<span class="blinking-cursor">_</span>
+                </h1>
+
+                <!-- Quick Terminal Introduction Box -->
+                <div class="terminal-bio-box">
+                  <div class="bio-line">
+                    <span class="bio-prompt">akash@tech:~$</span>
+                    <span class="bio-cmd">whoami --title</span>
+                  </div>
+                  <div class="bio-line about-content-block">
+                    <span class="bio-arrow">→</span>
+                    <span class="bio-text">
+                      <strong>Full-Stack Developer & Cloud Architect</strong> &bull; AI & Data Science Engineer &bull; IoT Telemetry Specialist &bull; Problem Solver.
+                    </span>
+                  </div>
+                  <div class="bio-line">
+                    <span class="bio-arrow">★</span>
+                    <span class="bio-text">
+                      <span class="highlight-badge">Full-Stack & Cloud Infrastructure</span> • <span class="highlight-badge">Diploma IT 92.8% (Top 5% Ranker)</span> • <span class="highlight-badge">Student Portal Developer</span>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Hero Action Buttons (Clean & Focused) -->
+                <div class="hero-actions">
+                  <button class="term-btn highlight clickable-jump" data-target="2">
+                    <i class="fas fa-user-astronaut"></i>
+                    <span>[→ About Me (whoami)]</span>
+                  </button>
+                  <button class="term-btn clickable-jump" data-target="9">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>[→ View Resume (CV)]</span>
+                  </button>
+                  <button class="term-btn secondary clickable-jump" data-target="10">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>[→ Get In Touch]</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Live Diagnostic Card -->
+              <div class="hero-diag-col">
+                <div class="terminal-card">
+                  <div class="card-header">
+                    <span class="card-title"><i class="fas fa-terminal"></i> SYSTEM_PROFILE // ACTIVE</span>
+                    <span class="card-sub">[STATUS: ONLINE]</span>
+                  </div>
+                  <div class="ascii-banner">
++------------------------------------+
+|  CANDIDATE: AKASH MANOKARAN        |
+|  DEGREE: B.TECH AI & DATA SCIENCE  |
+|  CGPA: 8.26 / 10 | DIPLOMA: 92.8%  |
++------------------------------------+</div>
+                  <div class="diag-row">
+                    <span class="diag-label">AVAILABILITY:</span>
+                    <span class="diag-val ok">● FULL-STACK DEVELOPER &bull; CLOUD INFRASTRUCTURE</span>
+                  </div>
+                  <div class="diag-row">
+                    <span class="diag-label">PRIMARY STACK:</span>
+                    <span class="diag-val">Python, Java, SQL, Full-Stack Web, AWS Cloud, IoT</span>
+                  </div>
+                  <div class="diag-row">
+                    <span class="diag-label">LEETCODE DSA:</span>
+                    <span class="diag-val ok">100+ Problems Solved</span>
+                  </div>
+                  <div class="diag-row">
+                    <span class="diag-label">KEY EXPERIENCE:</span>
+                    <span class="diag-val ok">PSG Polytechnic College &bull; Student Management Portal Developer</span>
+                  </div>
+                  <div class="diag-progress-group">
+                    <div class="diag-progress-label">
+                      <span>DIPLOMA PERCENTILE (PSG TECH):</span>
+                      <span>92.8%</span>
+                    </div>
+                    <div class="term-bar-track">
+                      <div class="term-bar-fill" style="width: 92.8%;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             PAGE 02: whoami (ABOUT ME & SYSTEM IDENTITY)
+             =================================================================== -->
+        <section class="page" id="page-2" data-page-num="2">
+          <div class="page-inner">
+            <div class="section-tag">[02/10] whoami // BIOGRAPHICAL & SYSTEM IDENTITY</div>
+            <div class="whoami-grid">
+              
+              <!-- Left Column: Terminal Typing Engine -->
+              <div class="whoami-typing-card terminal-card" id="whoami-main-card">
+                <div class="card-header">
+                  <span class="card-title">
+                    <i class="fas fa-terminal"></i> akash@macbook-pro:~$ whoami --verbose
+                  </span>
+                  <span class="card-sub">[STATUS: VERIFIED CANDIDATE]</span>
+                </div>
+
+                <div class="typing-terminal-body" id="whoami-typewriter-box">
+                  <div class="typing-p" id="typed-p1">
+                    <span class="bio-prompt">akash@tech:~$</span>
+                    <span class="typewriter-text" id="typewriter-target-1"></span>
+                  </div>
+                  <div class="typing-p" id="typed-p2">
+                    <span class="bio-arrow">→</span>
+                    <span class="typewriter-text" id="typewriter-target-2"></span>
+                  </div>
+                  <div class="typing-p" id="typed-p3">
+                    <span class="bio-arrow">★</span>
+                    <span class="typewriter-text" id="typewriter-target-3"></span>
+                  </div>
+                  <div class="typing-p" id="typed-p4">
+                    <span class="bio-arrow">⚡</span>
+                    <span class="typewriter-text" id="typewriter-target-4"></span>
+                  </div>
+                  <span class="typewriter-cursor" id="whoami-cursor"></span>
+                </div>
+
+                <div class="typing-controls-row">
+                  <button class="typing-ctrl-btn" onclick="restartWhoamiTyping()">
+                    <i class="fas fa-rotate-right"></i>
+                    <span>[Re-run Typing]</span>
+                  </button>
+                  <button class="typing-ctrl-btn" onclick="skipWhoamiTyping()">
+                    <i class="fas fa-forward-step"></i>
+                    <span>[Skip to Full Text]</span>
+                  </button>
+                  <button class="typing-ctrl-btn clickable-jump" data-target="3">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>[Next: Skills & Tech Stack]</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Right Column: Core Passions & Engineering DNA -->
+              <div class="whoami-dna-card terminal-card" id="whoami-side-card">
+                <div class="card-header">
+                  <span class="card-title"><i class="fas fa-dna"></i> ENGINEERING_CORE_DNA</span>
+                  <span class="card-sub">PILLARS & IMPACT</span>
+                </div>
+
+                <div class="dna-badge-grid">
+                  <div class="dna-badge-item">
+                    <div class="dna-head">
+                      <i class="fas fa-graduation-cap"></i>
+                      <span>ACADEMIC DISTINCTION</span>
+                    </div>
+                    <p class="dna-desc">
+                      B.Tech AI & Data Science at SKCET (2028). Prior Diploma in IT from PSG Tech with <strong>92.8% (Top 5% Ranker)</strong>.
+                    </p>
+                  </div>
+
+                  <div class="dna-badge-item">
+                    <div class="dna-head">
+                      <i class="fas fa-brain"></i>
+                      <span>AI & DATA SCIENCE</span>
+                    </div>
+                    <p class="dna-desc">
+                      Developing predictive models with Scikit-Learn, data wrangling with NumPy/Pandas, and automated NLP document extraction.
+                    </p>
+                  </div>
+
+                  <div class="dna-badge-item">
+                    <div class="dna-head">
+                      <i class="fas fa-microchip"></i>
+                      <span>SECURE IOT TELEMETRY</span>
+                    </div>
+                    <p class="dna-desc">
+                      Engineering sub-100ms vital medical monitoring with Arduino C++, Wokwi simulations, and real-time ThingSpeak cloud telemetry.
+                    </p>
+                  </div>
+
+                  <div class="dna-badge-item">
+                    <div class="dna-head">
+                      <i class="fas fa-layer-group"></i>
+                      <span>FULL-STACK ARCHITECTURE</span>
+                    </div>
+                    <p class="dna-desc">
+                      Designing relational SQL databases (MySQL/Oracle), RESTful backends, and responsive platforms for 500+ users.
+                    </p>
+                  </div>
+
+                  <div class="dna-badge-item">
+                    <div class="dna-head">
+                      <i class="fas fa-trophy"></i>
+                      <span>HACKATHONS & DSA</span>
+                    </div>
+                    <p class="dna-desc">
+                      Selected for <strong>Smart India Hackathon (SIH 2025)</strong> internal round & solved <strong>100+ LeetCode DSA</strong> problems.
+                    </p>
+                  </div>
+
+                  <div class="dna-badge-item">
+                    <div class="dna-head">
+                      <i class="fas fa-basketball"></i>
+                      <span>ATHLETICS & TEAMWORK</span>
+                    </div>
+                    <p class="dna-desc">
+                      School Basketball Champion — translating court agility, stamina, and team communication into high-velocity engineering sprints.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             PAGE 03: cat tech_stack.json (SKILLS & TECH STACK)
+             =================================================================== -->
+        <section class="page" id="page-3" data-page-num="3">
+          <div class="page-inner">
+            <div class="section-tag">[03/10] cat tech_stack.json // VERIFIED SKILLS & ARCHITECTURE</div>
+            <div class="tech-stack-page-grid">
+              
+              <!-- Left: Interactive JSON Viewer Terminal -->
+              <div class="json-terminal-card terminal-card">
+                <div class="card-header">
+                  <span class="card-title">
+                    <i class="fas fa-code"></i> akash@macbook-pro:~$ cat tech_stack.json
+                  </span>
+                  <button class="typing-ctrl-btn" onclick="copyTechStackJSON()">
+                    <i class="fas fa-clipboard"></i>
+                    <span>[Copy JSON]</span>
+                  </button>
+                </div>
+
+                <div class="json-toolbar-header">
+                  <div class="json-filter-bar">
+                    <button class="json-tab-btn active" onclick="filterTechStackJSON('all')">ALL</button>
+                    <button class="json-tab-btn" onclick="filterTechStackJSON('languages')">LANGUAGES</button>
+                    <button class="json-tab-btn" onclick="filterTechStackJSON('ai_ml')">AI / ML</button>
+                    <button class="json-tab-btn" onclick="filterTechStackJSON('iot')">IOT</button>
+                    <button class="json-tab-btn" onclick="filterTechStackJSON('web_db')">WEB & DB</button>
+                    <button class="json-tab-btn" onclick="filterTechStackJSON('tools')">TOOLS & CS</button>
+                  </div>
+                </div>
+
+                <div class="json-code-container" id="json-code-display">
+                  <!-- Dynamically rendered / formatted syntax-highlighted JSON -->
+                </div>
+              </div>
+
+              <!-- Right: Visual Competency Stack & Badges -->
+              <div class="tech-spec-side-card terminal-card">
+                <div class="card-header">
+                  <span class="card-title"><i class="fas fa-award"></i> VERIFIED_PROFICIENCIES</span>
+                  <span class="card-sub">ACCREDITATIONS</span>
+                </div>
+
+                <div class="spec-category-block">
+                  <div class="spec-cat-title"><i class="fab fa-python"></i> CORE LANGUAGES & FRAMEWORKS</div>
+                  <div class="spec-tag-cloud">
+                    <span class="spec-tag">Python 3.11</span>
+                    <span class="spec-tag">Java 17 / OOP</span>
+                    <span class="spec-tag">C Language</span>
+                    <span class="spec-tag">JavaScript ES6+</span>
+                    <span class="spec-tag">SQL (MySQL / Oracle)</span>
+                    <span class="spec-tag">HTML5 & CSS3</span>
+                  </div>
+                </div>
+
+                <div class="spec-category-block">
+                  <div class="spec-cat-title"><i class="fas fa-brain"></i> AI, ML & EMBEDDED IOT</div>
+                  <div class="spec-tag-cloud">
+                    <span class="spec-tag">Machine Learning</span>
+                    <span class="spec-tag">NumPy & Pandas</span>
+                    <span class="spec-tag">Scikit-Learn</span>
+                    <span class="spec-tag">Arduino C++</span>
+                    <span class="spec-tag">Wokwi Simulator</span>
+                    <span class="spec-tag">ThingSpeak IoT</span>
+                  </div>
+                </div>
+
+                <div class="spec-category-block">
+                  <div class="spec-cat-title"><i class="fas fa-toolbox"></i> TOOLS, CLOUD & PRACTICES</div>
+                  <div class="spec-tag-cloud">
+                    <span class="spec-tag">Git & GitHub</span>
+                    <span class="spec-tag">VS Code & Eclipse</span>
+                    <span class="spec-tag">Postman APIs</span>
+                    <span class="spec-tag">AWS Cloud Basics</span>
+                    <span class="spec-tag">JIRA Agile SDLC</span>
+                    <span class="spec-tag">Linux / Bash CLI</span>
+                  </div>
+                </div>
+
+                <div class="project-btn-row" style="margin-top:4px;">
+                  <button class="term-btn highlight full-width clickable-jump" data-target="4">
+                    <i class="fab fa-github"></i>
+                    <span>[→ Next: GitHub & LeetCode Contributions]</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             PAGE 04: GITHUB & LEETCODE REAL-TIME CONTRIBUTION MATRIX
+             =================================================================== -->
+        <section class="page" id="page-4" data-page-num="4">
+          <div class="page-inner">
+            <div class="section-tag">[04/10] CONTRIBUTIONS // GITHUB HEATMAP & LEETCODE TELEMETRY</div>
+            <div class="contributions-page-grid">
+              
+              <!-- Left Column: GitHub Heatmap & Activity Stream -->
+              <div class="github-contrib-card terminal-card">
+                <div class="card-header">
+                  <span class="card-title">
+                    <i class="fab fa-github"></i> github.com/akashmanokaran1 // git log --contributions
+                  </span>
+                  <span class="card-sub" id="gh-status-badge">LIVE API: 200 OK</span>
+                </div>
+
+                <!-- GitHub 365-Day Contribution Heatmap Visualizer -->
+                <div class="github-heatmap-container">
+                  <div class="heatmap-header-row">
+                    <span class="heatmap-title" id="gh-total-contrib-text">540+ Contributions in the last year</span>
+                    <div class="heatmap-legend">
+                      <span>Less</span>
+                      <span class="lvl-cell lvl-0"></span>
+                      <span class="lvl-cell lvl-1"></span>
+                      <span class="lvl-cell lvl-2"></span>
+                      <span class="lvl-cell lvl-3"></span>
+                      <span class="lvl-cell lvl-4"></span>
+                      <span>More</span>
+                    </div>
+                  </div>
+
+                  <!-- 52-week realistic rendered SVG / CSS contribution matrix -->
+                  <div class="heatmap-calendar-grid" id="github-calendar-matrix">
+                    <!-- Populated dynamically via live API / fallback -->
+                  </div>
+
+                  <!-- API Terminal Telemetry Line -->
+                  <div class="api-telemetry-status-line" id="gh-telemetry-status">
+                    <code>&gt; GET https://github-contributions-api.jogruber.de/v4/akashmanokaran1?y=last ... [OK 200]</code>
+                  </div>
+                </div>
+
+                <!-- Real-Time Push & Request History Feed -->
+                <div class="github-feed-container">
+                  <div class="feed-header">
+                    <i class="fas fa-code-commit"></i> REAL-TIME REPOSITORY PUSH & REQUEST HISTORY
+                    <button class="typing-ctrl-btn" onclick="fetchLiveGitHubActivity()" style="margin-left:auto; font-size:10px; padding:2px 6px;">
+                      <i class="fas fa-sync-alt"></i> <span>[Sync]</span>
+                    </button>
+                  </div>
+                  <div class="git-feed-list" id="git-live-feed-list">
+                    <div class="git-feed-item">
+                      <div class="feed-icon push"><i class="fas fa-code-branch"></i></div>
+                      <div class="feed-content">
+                        <div class="feed-title-line">
+                          <span class="feed-action">git push</span> to <strong>akashmanokaran1/Student-Integrated-Data-Platform</strong>
+                          <span class="feed-time">2 hrs ago</span>
+                        </div>
+                        <p class="feed-msg">feat(db): optimized relational queries with normalized foreign keys & 35% speedup</p>
+                      </div>
+                    </div>
+
+                    <div class="git-feed-item">
+                      <div class="feed-icon push"><i class="fas fa-code-branch"></i></div>
+                      <div class="feed-content">
+                        <div class="feed-title-line">
+                          <span class="feed-action">git push</span> to <strong>akashmanokaran1/IoT-Vital-Telemetry-Sentinel</strong>
+                          <span class="feed-time">Yesterday</span>
+                        </div>
+                        <p class="feed-msg">feat(embedded): sub-100ms multi-sensor buffer sampling & ThingSpeak cloud alerts</p>
+                      </div>
+                    </div>
+
+                    <div class="git-feed-item">
+                      <div class="feed-icon pr"><i class="fas fa-code-pull-request"></i></div>
+                      <div class="feed-content">
+                        <div class="feed-title-line">
+                          <span class="feed-action pr-tag">PR merged</span> into <strong>akashmanokaran1/SIH-2025-Gov-Data-Digitizer</strong>
+                          <span class="feed-time">3 days ago</span>
+                        </div>
+                        <p class="feed-msg">refactor(ocr): integrated document tabular parsing pipeline with 96.4% precision</p>
+                      </div>
+                    </div>
+
+                    <div class="git-feed-item">
+                      <div class="feed-icon push"><i class="fas fa-code-branch"></i></div>
+                      <div class="feed-content">
+                        <div class="feed-title-line">
+                          <span class="feed-action">git push</span> to <strong>akashmanokaran1/ML-Predictor-Scikit-Pipeline</strong>
+                          <span class="feed-time">5 days ago</span>
+                        </div>
+                        <p class="feed-msg">model(rf): trained RandomForest with 5-fold cross-validation & feature importances</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Column: LeetCode DSA Problem Solving Analytics -->
+              <div class="leetcode-contrib-card terminal-card">
+                <div class="card-header">
+                  <span class="card-title">
+                    <i class="fas fa-code"></i> cat leetcode_stats.txt // DSA TELEMETRY
+                  </span>
+                  <span class="card-sub" id="lc-status-badge">API: 200 OK</span>
+                </div>
+
+                <!-- LeetCode Terminal Fetch Output Box -->
+                <div class="terminal-fetch-box" style="background: rgba(0,0,0,0.4); border: 1px dashed rgba(0,255,0,0.2); padding: 0.6rem 0.8rem; border-radius: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--term-cyan);">
+                  <div>&gt; Fetching LeetCode data from alfa-leetcode-api...</div>
+                  <div style="color: var(--term-green);">&gt; Status: 200 OK &bull; Profile: akashmanokaran1</div>
+                  <div style="color: #ffffff;">&gt; Total Solved: <span id="lc-text-total" style="color:var(--term-green); font-weight:bold;">100+</span> | Acceptance Rate: <span id="lc-text-rate" style="color:var(--term-amber); font-weight:bold;">85.4%</span></div>
+                </div>
+
+                <!-- LeetCode Stats Breakdown -->
+                <div class="leetcode-stats-overview">
+                  <div class="lc-circle-stat">
+                    <div class="lc-big-num" id="lc-big-number-val">100+</div>
+                    <div class="lc-label">Problems Solved</div>
+                  </div>
+                  <div class="lc-bars-group">
+                    <div class="lc-bar-item">
+                      <div class="lc-bar-labels">
+                        <span class="lc-diff easy">Easy</span>
+                        <span class="lc-count" id="lc-easy-count">45 / 45</span>
+                      </div>
+                      <div class="lc-track"><div class="lc-fill easy" id="lc-easy-bar" style="width: 100%;"></div></div>
+                    </div>
+
+                    <div class="lc-bar-item">
+                      <div class="lc-bar-labels">
+                        <span class="lc-diff medium">Medium</span>
+                        <span class="lc-count" id="lc-med-count">48 / 50</span>
+                      </div>
+                      <div class="lc-track"><div class="lc-fill medium" id="lc-med-bar" style="width: 96%;"></div></div>
+                    </div>
+
+                    <div class="lc-bar-item">
+                      <div class="lc-bar-labels">
+                        <span class="lc-diff hard">Hard</span>
+                        <span class="lc-count" id="lc-hard-count">12 / 15</span>
+                      </div>
+                      <div class="lc-track"><div class="lc-fill hard" id="lc-hard-bar" style="width: 80%;"></div></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- LeetCode Topic Badges -->
+                <div class="lc-topic-badges">
+                  <div class="lc-chip">Arrays & Hash Maps <span class="chip-n">32</span></div>
+                  <div class="lc-chip">Dynamic Programming <span class="chip-n">18</span></div>
+                  <div class="lc-chip">Trees & Graphs <span class="chip-n">24</span></div>
+                  <div class="lc-chip">Sliding Window <span class="chip-n">16</span></div>
+                  <div class="lc-chip">SQL Queries <span class="chip-n">14</span></div>
+                </div>
+
+                <!-- LeetCode Real-Time Accepted Submissions -->
+                <div class="lc-submissions-feed">
+                  <div class="feed-header"><i class="fas fa-check-circle" style="color:var(--term-green);"></i> VERIFIED ACCEPTED SUBMISSIONS</div>
+                  <div class="lc-sub-list">
+                    <div class="lc-sub-item">
+                      <span class="ac-tag">[AC]</span>
+                      <span class="lc-pname">Two Sum</span>
+                      <span class="lc-pdiff easy">Easy</span>
+                      <span class="lc-speed">0ms (Beats 100%)</span>
+                    </div>
+                    <div class="lc-sub-item">
+                      <span class="ac-tag">[AC]</span>
+                      <span class="lc-pname">Longest Substring Without Repeating</span>
+                      <span class="lc-pdiff medium">Medium</span>
+                      <span class="lc-speed">4ms (Beats 96%)</span>
+                    </div>
+                    <div class="lc-sub-item">
+                      <span class="ac-tag">[AC]</span>
+                      <span class="lc-pname">Binary Tree Level Order Traversal</span>
+                      <span class="lc-pdiff medium">Medium</span>
+                      <span class="lc-speed">1ms (Beats 98%)</span>
+                    </div>
+                    <div class="lc-sub-item">
+                      <span class="ac-tag">[AC]</span>
+                      <span class="lc-pname">LRU Cache</span>
+                      <span class="lc-pdiff hard">Hard</span>
+                      <span class="lc-speed">32ms (Beats 94%)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="project-btn-row" style="margin-top:auto;">
+                  <button class="term-btn highlight full-width clickable-jump" data-target="5">
+                    <i class="fas fa-laptop-code"></i>
+                    <span>[→ Next: Explore Featured Projects]</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             PAGE 05: PROJECT 01 (STUDENT INTEGRATED PLATFORM)
+             =================================================================== -->
+        <section class="page" id="page-5" data-page-num="5">
+          <div class="page-inner">
+            <div class="section-tag">[05/10] PROJECTS // FEATURED PROJECT 01 (DATA & WEB)</div>
+            
+            <!-- Interactive Inline Project Search & Multi-Tech Filter Bar -->
+            <div class="inline-project-search-box">
+              <div class="inline-search-input-row">
+                <i class="fas fa-search" style="color:var(--term-cyan);"></i>
+                <input 
+                  type="text" 
+                  class="inline-search-field" 
+                  id="page-project-search-input" 
+                  placeholder="Search projects by technology (e.g. React 19, Flutter, Unity WebXR, Android ARCore, FastAPI, Tailwind, Framer Motion, GSAP, Lenis, MongoDB)..."
+                  oninput="handleInlineProjectSearch(this.value)"
+                >
+                <button class="term-btn" onclick="clearInlineProjectSearch()" title="Clear filter">
+                  <i class="fas fa-times"></i>
+                  <span>[Clear]</span>
+                </button>
+                <button class="term-btn highlight" onclick="openSpotlightModal()">
+                  <i class="fas fa-layer-group"></i>
+                  <span>[Spotlight Finder ⌘K]</span>
+                </button>
+              </div>
+
+              <!-- Filter Chips Row -->
+              <div class="inline-filter-chips-scroll" id="inline-tech-chips-scroll">
+                <!-- Dynamically populated tags with all requested technologies -->
+              </div>
+
+              <div class="project-view-toolbar" style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
+                <span class="inline-results-count" id="inline-results-count-text" style="font-size:11px; color:var(--term-amber);">
+                  <i class="fas fa-filter"></i> Filter: ALL PROJECTS
+                </span>
+                <div class="view-toggle-btns" style="display:flex; gap:6px;">
+                  <button class="term-btn active" id="btn-view-featured" onclick="switchProjectPageView('featured')" style="font-size:10px; padding:2px 8px;">
+                    <span>[★ Featured Project 01]</span>
+                  </button>
+                  <button class="term-btn" id="btn-view-explorer" onclick="switchProjectPageView('explorer')" style="font-size:10px; padding:2px 8px;">
+                    <span>[⊞ Multi-Tech Explorer (9 Projects)]</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic In-Place Filtered Projects Grid (Switches smoothly) -->
+            <div class="inline-project-results-grid" id="page4-dynamic-projects-grid" style="display:none;">
+              <!-- Dynamically populated project cards -->
+            </div>
+
+            <div class="project-page-grid" id="page4-featured-grid">
+              <div class="project-info-card terminal-card">
+                <div>
+                  <span class="project-num-badge">🌟 FEATURED PROJECT // WEB & DATA PLATFORM</span>
+                  <h2 class="project-title">Student Integrated Platform for Educational Data Management</h2>
+                  <p class="project-desc">
+                    Engineered a centralized full-stack web portal to streamline academic data records, attendance tracking, and performance analytics for 500+ students and faculty, improving institutional data accessibility by 40%.
+                  </p>
+                  
+                  <div class="tech-tag-group">
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">MySQL Database</span>
+                    <span class="tech-pill">JavaScript</span>
+                    <span class="tech-pill">HTML5 / CSS3</span>
+                    <span class="tech-pill">CRUD Operations</span>
+                    <span class="tech-pill">SDLC Practices</span>
+                  </div>
+
+                  <div class="project-meta-list">
+                    <div class="p-meta-item">Users Served: <span>500+ Students & Faculty</span></div>
+                    <div class="p-meta-item">Query Speedup: <span>35% Faster Retrieval</span></div>
+                    <div class="p-meta-item">Admin Time Saved: <span>10+ Hours / Week</span></div>
+                    <div class="p-meta-item">Accessibility: <span>+40% Efficiency</span></div>
+                  </div>
+                </div>
+
+                <div class="project-btn-row">
+                  <button class="term-btn" onclick="executeCLICommand('cat project1')">
+                    <span>[→ Inspect Architecture]</span>
+                  </button>
+                  <a href="https://github.com/akashmanokaran1" target="_blank" class="term-btn secondary">
+                    <span>[→ GitHub Repository]</span>
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Clean Architecture & Impact Highlights Card -->
+              <div class="code-viewer-card terminal-card">
+                <div class="card-header">
+                  <span class="card-title"><i class="fas fa-network-wired"></i> SYSTEM ARCHITECTURE & IMPACT</span>
+                  <span class="card-sub">FULL-STACK</span>
+                </div>
+                <div class="clean-project-highlights-body" style="padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem;">
+                  <div class="highlight-feature-item" style="display: flex; gap: 10px; align-items: flex-start;">
+                    <i class="fas fa-database" style="color: var(--term-cyan); font-size: 1.1rem; margin-top: 2px;"></i>
+                    <div>
+                      <strong style="color: #ffffff; font-size: 13px;">Optimized Relational Schema</strong>
+                      <p style="color: var(--text-muted); font-size: 12px; margin-top: 2px;">
+                        Designed normalized MySQL tables with indexed foreign keys, achieving sub-20ms query execution across 500+ student profiles.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="highlight-feature-item" style="display: flex; gap: 10px; align-items: flex-start;">
+                    <i class="fas fa-user-shield" style="color: var(--term-green); font-size: 1.1rem; margin-top: 2px;"></i>
+                    <div>
+                      <strong style="color: #ffffff; font-size: 13px;">Role-Based Access Control (RBAC)</strong>
+                      <p style="color: var(--text-muted); font-size: 12px; margin-top: 2px;">
+                        Configured secure permission tiers separating administrators, faculty evaluators, and student views for academic integrity.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="highlight-feature-item" style="display: flex; gap: 10px; align-items: flex-start;">
+                    <i class="fas fa-chart-line" style="color: var(--term-amber); font-size: 1.1rem; margin-top: 2px;"></i>
+                    <div>
+                      <strong style="color: #ffffff; font-size: 13px;">Automated Performance Telemetry</strong>
+                      <p style="color: var(--text-muted); font-size: 12px; margin-top: 2px;">
+                        Generates visual attendance logs and semester GPA breakdowns, saving over 10 administrative hours each week.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="terminal-viz-box">
+                  <div class="viz-log-line">
+                    <span class="timestamp">[VERIFIED]</span>
+                    <span class="msg-ok">[SUCCESS]</span>
+                    <span>Institutional portal live &bull; 35% faster student record lookup</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             PAGE 06: PROJECT 02 (IOT REAL-TIME HEALTH MONITORING)
+             =================================================================== -->
+        <section class="page" id="page-6" data-page-num="6">
+          <div class="page-inner">
+            <div class="section-tag">[06/10] PROJECTS // FEATURED PROJECT 02 (EMBEDDED IOT & TELEMETRY)</div>
+            <div class="project-page-grid">
+              <div class="project-info-card terminal-card">
+                <div>
+                  <span class="project-num-badge">⚡ EMBEDDED IOT & VITAL TELEMETRY</span>
+                  <h2 class="project-title">IoT-Based Real-Time Health Monitoring System</h2>
+                  <p class="project-desc">
+                    Engineered a real-time vital patient monitoring device utilizing Arduino Uno and sensor integrations (Pulse Rate, Body Temperature, SpO2) streaming live diagnostics to ThingSpeak IoT analytics for continuous cloud telemetry.
+                  </p>
+                  
+                  <div class="tech-tag-group">
+                    <span class="tech-pill">Arduino C++</span>
+                    <span class="tech-pill">Wokwi Simulator</span>
+                    <span class="tech-pill">ThingSpeak IoT</span>
+                    <span class="tech-pill">Pulse & SpO2 Sensors</span>
+                    <span class="tech-pill">Hardware Protocols</span>
+                    <span class="tech-pill">Threshold Alerts</span>
+                  </div>
+
+                  <div class="project-meta-list">
+                    <div class="p-meta-item">Latency: <span>&lt; 100ms Vital Acquisition</span></div>
+                    <div class="p-meta-item">Sensors: <span>3 Parallel Channels</span></div>
+                    <div class="p-meta-item">Platform: <span>ThingSpeak Analytics</span></div>
+                    <div class="p-meta-item">Alerts: <span>Automated Threshold</span></div>
+                  </div>
+                </div>
+
+                <div class="project-btn-row">
+                  <button class="term-btn" onclick="executeCLICommand('cat project2')">
+                    <span>[→ Inspect Schematics]</span>
+                  </button>
+                  <a href="https://github.com/akashmanokaran1" target="_blank" class="term-btn secondary">
+                    <span>[→ GitHub Repository]</span>
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Clean IoT Telemetry Architecture Card -->
+              <div class="code-viewer-card terminal-card">
+                <div class="card-header">
+                  <span class="card-title"><i class="fas fa-microchip"></i> IOT SENSOR PIPELINE & CLOUD</span>
+                  <span class="card-sub">EMBEDDED C++</span>
+                </div>
+                <div class="clean-project-highlights-body" style="padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem;">
+                  <div class="highlight-feature-item" style="display: flex; gap: 10px; align-items: flex-start;">
+                    <i class="fas fa-heart-pulse" style="color: #ff3366; font-size: 1.1rem; margin-top: 2px;"></i>
+                    <div>
+                      <strong style="color: #ffffff; font-size: 13px;">Sub-100ms Multi-Sensor Acquisition</strong>
+                      <p style="color: var(--text-muted); font-size: 12px; margin-top: 2px;">
+                        Continuous concurrent sampling of Heart Rate (BPM), SpO2 Oxygen Saturation, and LM35 Body Temperature.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="highlight-feature-item" style="display: flex; gap: 10px; align-items: flex-start;">
+                    <i class="fas fa-cloud-arrow-up" style="color: var(--term-cyan); font-size: 1.1rem; margin-top: 2px;"></i>
+                    <div>
+                      <strong style="color: #ffffff; font-size: 13px;">ThingSpeak Cloud Telemetry</strong>
+                      <p style="color: var(--text-muted); font-size: 12px; margin-top: 2px;">
+                        Wireless RESTful transmission to ThingSpeak cloud channels for real-time visualization and historic patient telemetry analysis.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="highlight-feature-item" style="display: flex; gap: 10px; align-items: flex-start;">
+                    <i class="fas fa-bell" style="color: var(--term-amber); font-size: 1.1rem; margin-top: 2px;"></i>
+                    <div>
+                      <strong style="color: #ffffff; font-size: 13px;">Instant Medical Threshold Alerts</strong>
+                      <p style="color: var(--text-muted); font-size: 12px; margin-top: 2px;">
+                        Automated threshold triggers notify clinical staff immediately when vitals deviate from normal physiological bounds.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="terminal-viz-box">
+                  <div class="viz-log-line">
+                    <span class="timestamp">[TELEMETRY]</span>
+                    <span class="msg-ok">[LIVE OK]</span>
+                    <span>BPM: 74 &bull; Temp: 36.8°C &bull; SpO2: 99% (sub-100ms latency)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             PAGE 07: PROJECT 03 (SMART INDIA HACKATHON 2025)
+             =================================================================== -->
+        <section class="page" id="page-7" data-page-num="7">
+          <div class="page-inner">
+            <div class="section-tag">[07/10] PROJECTS // FEATURED PROJECT 03 (GOVERNMENT DATA DIGITIZATION)</div>
+            <div class="project-page-grid">
+              <div class="project-info-card terminal-card">
+                <div>
+                  <span class="project-num-badge">🏆 SMART INDIA HACKATHON (SIH 2025) SELECTED</span>
+                  <h2 class="project-title">Smart India Hackathon (SIH 2025) Data Digitizer</h2>
+                  <p class="project-desc">
+                    Selected for the Smart India Hackathon (SIH) 2025 internal round. Engineered an automated intelligent document ingestion & structured digitization pipeline tailored for governmental data archives.
+                  </p>
+                  
+                  <div class="tech-tag-group">
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">OCR & NLP</span>
+                    <span class="tech-pill">MySQL & Oracle SQL</span>
+                    <span class="tech-pill">Flask API</span>
+                    <span class="tech-pill">Data Extraction</span>
+                    <span class="tech-pill">SIH 2025</span>
+                  </div>
+
+                  <div class="project-meta-list">
+                    <div class="p-meta-item">Hackathon: <span>SIH 2025 Internal Selected</span></div>
+                    <div class="p-meta-item">Accuracy: <span>96.4% OCR Extraction</span></div>
+                    <div class="p-meta-item">Domain: <span>Gov Data Digitization</span></div>
+                    <div class="p-meta-item">Storage: <span>Relational SQL Vault</span></div>
+                  </div>
+                </div>
+
+                <div class="project-btn-row">
+                  <button class="term-btn" onclick="executeCLICommand('cat sih')">
+                    <span>[→ View Architecture]</span>
+                  </button>
+                  <a href="https://github.com/akashmanokaran1" target="_blank" class="term-btn secondary">
+                    <span>[→ GitHub Repository]</span>
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Clean SIH Highlights Card -->
+              <div class="code-viewer-card terminal-card">
+                <div class="card-header">
+                  <span class="card-title"><i class="fas fa-file-invoice"></i> OCR & NLP DIGITIZATION PIPELINE</span>
+                  <span class="card-sub">AI & DATA ENGINE</span>
+                </div>
+                <div class="clean-project-highlights-body" style="padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem;">
+                  <div class="highlight-feature-item" style="display: flex; gap: 10px; align-items: flex-start;">
+                    <i class="fas fa-eye" style="color: var(--term-green); font-size: 1.1rem; margin-top: 2px;"></i>
+                    <div>
+                      <strong style="color: #ffffff; font-size: 13px;">96.4% Accurate Document Extraction</strong>
+                      <p style="color: var(--text-muted); font-size: 12px; margin-top: 2px;">
+                        Optical Character Recognition and NLP entities parser extracts structured tabular data from raw scanned physical paperwork.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="highlight-feature-item" style="display: flex; gap: 10px; align-items: flex-start;">
+                    <i class="fas fa-vault" style="color: var(--term-cyan); font-size: 1.1rem; margin-top: 2px;"></i>
+                    <div>
+                      <strong style="color: #ffffff; font-size: 13px;">Automated SQL Archive Vaulting</strong>
+                      <p style="color: var(--text-muted); font-size: 12px; margin-top: 2px;">
+                        Transformed data is automatically vectorized and committed into relational databases, eliminating manual filing bottlenecks.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="highlight-feature-item" style="display: flex; gap: 10px; align-items: flex-start;">
+                    <i class="fas fa-medal" style="color: var(--term-amber); font-size: 1.1rem; margin-top: 2px;"></i>
+                    <div>
+                      <strong style="color: #ffffff; font-size: 13px;">SIH 2025 Internal Round Winner</strong>
+                      <p style="color: var(--text-muted); font-size: 12px; margin-top: 2px;">
+                        Recognized by collegiate evaluation panels for high-throughput government data ingestion and archival resilience.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="terminal-viz-box">
+                  <div class="viz-log-line">
+                    <span class="timestamp">[SIH 2025]</span>
+                    <span class="msg-ok">[SUCCESS]</span>
+                    <span>Document ingestion pipeline active &bull; 96.4% accuracy achieved</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             PAGE 08: PROJECT 04 (DATA ANALYSIS, ML & JAVA OOP)
+             =================================================================== -->
+        <section class="page" id="page-8" data-page-num="8">
+          <div class="page-inner">
+            <div class="section-tag">[08/10] PROJECTS // FEATURED PROJECT 04 (AI & ENTERPRISE OOP)</div>
+            <div class="project-page-grid">
+              <div class="project-info-card terminal-card">
+                <div>
+                  <span class="project-num-badge">🧠 AI & ENTERPRISE OOP ARCHITECTURE</span>
+                  <h2 class="project-title">Machine Learning Predictor & Java Enterprise Bridge</h2>
+                  <p class="project-desc">
+                    Comprehensive data-driven predictive modeling suites leveraging Python, Scikit-Learn, and statistical regression paired with robust Java OOP modular backend connectors for enterprise workloads.
+                  </p>
+                  
+                  <div class="tech-tag-group">
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">Machine Learning</span>
+                    <span class="tech-pill">NumPy & Pandas</span>
+                    <span class="tech-pill">Java 17 OOP</span>
+                    <span class="tech-pill">Oracle / MySQL</span>
+                    <span class="tech-pill">Scikit-Learn</span>
+                  </div>
+
+                  <div class="project-meta-list">
+                    <div class="p-meta-item">ML Algorithm: <span>RandomForestClassifier</span></div>
+                    <div class="p-meta-item">Validation: <span>K-Fold Cross-Validation</span></div>
+                    <div class="p-meta-item">Architecture: <span>Layered OOP MVC</span></div>
+                    <div class="p-meta-item">NPTEL: <span>Data Science Certified</span></div>
+                  </div>
+                </div>
+
+                <div class="project-btn-row">
+                  <button class="term-btn" onclick="executeCLICommand('cat ml')">
+                    <span>[→ View ML Pipeline]</span>
+                  </button>
+                  <a href="https://github.com/akashmanokaran1" target="_blank" class="term-btn secondary">
+                    <span>[→ GitHub Repository]</span>
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Clean ML Highlights Card -->
+              <div class="code-viewer-card terminal-card">
+                <div class="card-header">
+                  <span class="card-title"><i class="fas fa-brain"></i> PREDICTIVE MODELING & ENTERPRISE OOP</span>
+                  <span class="card-sub">AI & ENTERPRISE</span>
+                </div>
+                <div class="clean-project-highlights-body" style="padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem;">
+                  <div class="highlight-feature-item" style="display: flex; gap: 10px; align-items: flex-start;">
+                    <i class="fas fa-network-wired" style="color: var(--term-green); font-size: 1.1rem; margin-top: 2px;"></i>
+                    <div>
+                      <strong style="color: #ffffff; font-size: 13px;">RandomForest Ensemble Modeling</strong>
+                      <p style="color: var(--text-muted); font-size: 12px; margin-top: 2px;">
+                        Trained predictive classifiers with feature selection, cross-validation tuning, and regression metrics using Scikit-Learn.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="highlight-feature-item" style="display: flex; gap: 10px; align-items: flex-start;">
+                    <i class="fab fa-java" style="color: var(--term-amber); font-size: 1.1rem; margin-top: 2px;"></i>
+                    <div>
+                      <strong style="color: #ffffff; font-size: 13px;">Robust Java 17 Enterprise Bridge</strong>
+                      <p style="color: var(--text-muted); font-size: 12px; margin-top: 2px;">
+                        Structured Object-Oriented service layers and DAO patterns for enterprise database transactions and secure data pipelines.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="highlight-feature-item" style="display: flex; gap: 10px; align-items: flex-start;">
+                    <i class="fas fa-certificate" style="color: var(--term-cyan); font-size: 1.1rem; margin-top: 2px;"></i>
+                    <div>
+                      <strong style="color: #ffffff; font-size: 13px;">NPTEL Data Science Accreditation</strong>
+                      <p style="color: var(--text-muted); font-size: 12px; margin-top: 2px;">
+                        Formal certification in Python for Data Science, applying statistical learning to real-world analytical datasets.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="terminal-viz-box">
+                  <div class="viz-log-line">
+                    <span class="timestamp">[AI/ML]</span>
+                    <span class="msg-ok">[SUCCESS]</span>
+                    <span>Cross-validated predictive model trained & enterprise bridge active</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             PAGE 09: RESUME & CURRICULUM VITAE MODULE (PDF VIEWER & DOWNLOAD)
+             =================================================================== -->
+        <section class="page" id="page-9" data-page-num="9">
+          <div class="page-inner">
+            <div class="section-tag">[09/10] RESUME // OFFICIAL ATS CURRICULUM VITAE</div>
+            <div class="resume-module-grid">
+              
+              <!-- Professional CRT / ATS Resume Visualizer Card -->
+              <div class="resume-doc-card terminal-card" id="resume-doc-container">
+                <div class="card-header">
+                  <span class="card-title"><i class="fas fa-file-invoice"></i> AKASH_MANOKARAN_CURRICULUM_VITAE</span>
+                  <span class="card-sub">[ATS MATCH: 98% // VERIFIED]</span>
+                </div>
+
+                <!-- CRT / PDF / MD View Switcher Tabs -->
+                <div class="resume-view-tab-bar">
+                  <button class="resume-view-tab-btn active" id="tab-btn-crt" onclick="switchResumeTab('crt')">
+                    <i class="fas fa-terminal"></i> <span>CRT ATS Visualizer</span>
+                  </button>
+                  <button class="resume-view-tab-btn" id="tab-btn-pdf" onclick="switchResumeTab('pdf')">
+                    <i class="fas fa-file-pdf"></i> <span>PDF Document</span>
+                  </button>
+                  <button class="resume-view-tab-btn" id="tab-btn-md" onclick="switchResumeTab('md')">
+                    <i class="fas fa-code"></i> <span>Markdown Raw</span>
+                  </button>
+                </div>
+
+                <!-- Panel 1: Interactive CRT ATS Visualizer (Active) -->
+                <div class="resume-panel active" id="resume-panel-crt">
+                  <div class="resume-crt-body">
+                    
+                    <div class="crt-ats-banner">
+                      <span><i class="fas fa-check-circle" style="color:var(--term-green);"></i> ATS COMPLIANT: <strong>98% MATCH</strong></span>
+                      <span class="crt-ats-badge">FULL-STACK &bull; CLOUD &bull; IOT</span>
+                    </div>
+
+                    <!-- Header Profile -->
+                    <div class="crt-candidate-header">
+                      <div class="crt-name">AKASH MANOKARAN</div>
+                      <div class="crt-role">Full-Stack Developer &bull; Cloud Infrastructure &bull; AI & Data Science Engineer</div>
+                      <div class="crt-contact-row">
+                        <a href="mailto:akash.manokaran1@gmail.com" class="crt-contact-item"><i class="fas fa-envelope"></i> akash.manokaran1@gmail.com</a>
+                        <a href="https://linkedin.com/in/akash-m-319b98343" target="_blank" class="crt-contact-item"><i class="fab fa-linkedin"></i> linkedin.com/in/akash-m-319b98343</a>
+                        <a href="https://github.com/akashmanokaran1" target="_blank" class="crt-contact-item"><i class="fab fa-github"></i> github.com/akashmanokaran1</a>
+                        <span class="crt-contact-item"><i class="fas fa-map-marker-alt"></i> Tamil Nadu, India</span>
+                      </div>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="crt-section-block">
+                      <div class="crt-section-title"><i class="fas fa-user-check"></i> Professional Summary</div>
+                      <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">
+                        Results-driven engineer pursuing B.Tech in Artificial Intelligence & Data Science with prior Diploma in IT from PSG Polytechnic College (<strong style="color:var(--term-green);">92.8%, Top 5% Ranker</strong>). Proven experience architecting full-stack web platforms (Student Management Portal at PSG Tech), real-time IoT vital telemetry architectures, and solving 100+ DSA problems on LeetCode. Skilled in Python, Java, SQL, AWS Cloud, and agile SDLC practices.
+                      </p>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="crt-section-block">
+                      <div class="crt-section-title"><i class="fas fa-graduation-cap"></i> Education</div>
+                      
+                      <div class="crt-entry">
+                        <div class="crt-entry-header">
+                          <span class="crt-entry-title">Bachelor of Technology (B.Tech) – Artificial Intelligence & Data Science</span>
+                          <span class="crt-entry-date">2024 – 2028 (Expected)</span>
+                        </div>
+                        <div class="crt-entry-org">Sri Krishna College of Engineering & Technology (SKCET) &bull; CGPA: 8.26 / 10</div>
+                        <ul class="crt-bullet-list">
+                          <li>Core Coursework: Data Structures & Algorithms, Database Management Systems (DBMS), Operating Systems, Computer Networks, Machine Learning.</li>
+                        </ul>
+                      </div>
+
+                      <div class="crt-entry">
+                        <div class="crt-entry-header">
+                          <span class="crt-entry-title">Diploma in Information Technology (Top 5% Batch Ranker)</span>
+                          <span class="crt-entry-date">2022 – 2025</span>
+                        </div>
+                        <div class="crt-entry-org">PSG Polytechnic College, Coimbatore &bull; Aggregate: 92.8% (Distinction)</div>
+                        <ul class="crt-bullet-list">
+                          <li>Ranked among top 5% academic performers across the department with distinction in Web Systems, OOP, and Database Architecture.</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <!-- Technical Skills -->
+                    <div class="crt-section-block">
+                      <div class="crt-section-title"><i class="fas fa-code"></i> Technical Skills Matrix</div>
+                      <div class="crt-skills-grid">
+                        <div class="crt-skill-row">
+                          <span class="crt-skill-cat">Programming:</span>
+                          <span class="crt-skill-items">Python, Java (OOP), C, SQL, JavaScript (ES6+), HTML5, CSS3</span>
+                        </div>
+                        <div class="crt-skill-row">
+                          <span class="crt-skill-cat">Web & Frameworks:</span>
+                          <span class="crt-skill-items">Full-Stack Web Development, React Basics, Spring Boot, RESTful APIs, Responsive UI</span>
+                        </div>
+                        <div class="crt-skill-row">
+                          <span class="crt-skill-cat">Databases:</span>
+                          <span class="crt-skill-items">MySQL, Oracle SQL, Relational Schema Design, Query Optimization, CRUD</span>
+                        </div>
+                        <div class="crt-skill-row">
+                          <span class="crt-skill-cat">Cloud & DevOps:</span>
+                          <span class="crt-skill-items">AWS Cloud Practitioner, Git, GitHub, Postman, Linux CLI, JIRA Agile</span>
+                        </div>
+                        <div class="crt-skill-row">
+                          <span class="crt-skill-cat">IoT & Embedded:</span>
+                          <span class="crt-skill-items">Arduino C++, ThingSpeak IoT Analytics, Wokwi Simulation, Sensor Telemetry</span>
+                        </div>
+                        <div class="crt-skill-row">
+                          <span class="crt-skill-cat">Core Competencies:</span>
+                          <span class="crt-skill-items">100+ LeetCode DSA Problems, Object-Oriented Design, SDLC, Problem Solving</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Experience & Featured Projects -->
+                    <div class="crt-section-block">
+                      <div class="crt-section-title"><i class="fas fa-briefcase"></i> Experience & Featured Projects</div>
+                      
+                      <div class="crt-entry">
+                        <div class="crt-entry-header">
+                          <span class="crt-entry-title">Student Management Portal & Integrated Platform</span>
+                          <span class="crt-entry-date">PSG Polytechnic College</span>
+                        </div>
+                        <div class="crt-entry-org">Role: Full-Stack Web & Database Developer &bull; Stack: HTML5, CSS3, JavaScript, Python, MySQL</div>
+                        <ul class="crt-bullet-list">
+                          <li>Engineered full-stack academic data platform serving 500+ students and faculty members, boosting data accessibility by 40%.</li>
+                          <li>Designed optimized relational MySQL database schema, slashing query latency by 35% across high-frequency grade lookups.</li>
+                          <li>Implemented responsive interface and user role authentication, saving 10+ administrative hours per week.</li>
+                        </ul>
+                      </div>
+
+                      <div class="crt-entry">
+                        <div class="crt-entry-header">
+                          <span class="crt-entry-title">IoT-Based Real-Time Patient Health Monitoring System</span>
+                          <span class="crt-entry-date">Embedded & Cloud Telemetry</span>
+                        </div>
+                        <div class="crt-entry-org">Stack: Embedded C++, Arduino Uno, ThingSpeak Cloud, Wokwi Simulator</div>
+                        <ul class="crt-bullet-list">
+                          <li>Engineered low-latency vital sign telemetry system measuring SpO2, BPM pulse rate, and temperature.</li>
+                          <li>Attained sub-100ms vital acquisition response times and integrated automated ThingSpeak threshold breach alerts.</li>
+                        </ul>
+                      </div>
+
+                      <div class="crt-entry">
+                        <div class="crt-entry-header">
+                          <span class="crt-entry-title">Governmental Document Digitization Pipeline</span>
+                          <span class="crt-entry-date">Smart India Hackathon</span>
+                        </div>
+                        <div class="crt-entry-org">Stack: Python, Tesseract OCR, NLP, OpenCV, Regex Data Extractor</div>
+                        <ul class="crt-bullet-list">
+                          <li>Selected in SIH internal round for building an automated OCR & NLP pipeline converting unstructured government forms to clean database records.</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <!-- Certifications & Achievements -->
+                    <div class="crt-section-block">
+                      <div class="crt-section-title"><i class="fas fa-award"></i> Certifications & Key Achievements</div>
+                      <ul class="crt-bullet-list">
+                        <li><strong>AWS Cloud Practitioner Essentials</strong> – AWS Training & Certification badge.</li>
+                        <li><strong>Python with Data Science</strong> – NPTEL Certified.</li>
+                        <li><strong>JIRA Fundamentals Badge</strong> – Atlassian Agile Project Management.</li>
+                        <li><strong>100+ LeetCode DSA Problems Solved</strong> – Continuous algorithmic problem solving in Arrays, Graphs, DP.</li>
+                        <li><strong>Diploma 92.8% (Top 5% Ranker)</strong> – PSG Polytechnic College Department Distinction.</li>
+                        <li><strong>Basketball Champion</strong> – Team leadership and athletic championship winner.</li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Panel 2: PDF Document Embed -->
+                <div class="resume-panel" id="resume-panel-pdf">
+                  <div class="pdf-viewer-container" id="pdf-viewer-container" style="min-height:430px;">
+                    <object 
+                      data="AKASH_MANOKARAN_RESUME.pdf" 
+                      type="application/pdf" 
+                      class="pdf-embed-object"
+                      id="pdf-embed-object"
+                    >
+                      <iframe 
+                        src="AKASH_MANOKARAN_RESUME.pdf" 
+                        class="pdf-embed-iframe"
+                        id="pdf-embed-iframe"
+                        title="Akash Manokaran Resume PDF"
+                      ></iframe>
+                    </object>
+                  </div>
+                </div>
+
+                <!-- Panel 3: Markdown Source -->
+                <div class="resume-panel" id="resume-panel-md">
+                  <pre class="resume-md-code-box" id="resume-md-text-container"></pre>
+                </div>
+
+                <!-- Footer Action Buttons -->
+                <div class="resume-card-footer">
+                  <div class="resume-footer-actions">
+                    <button class="term-btn highlight" onclick="openResumeModal()">
+                      <i class="fas fa-expand"></i>
+                      <span>[Fullscreen Modal]</span>
+                    </button>
+                    <a href="AKASH_MANOKARAN_RESUME.pdf" download="AKASH_MANOKARAN_RESUME.pdf" class="term-btn">
+                      <i class="fas fa-download"></i>
+                      <span>[Download PDF]</span>
+                    </a>
+                    <button class="term-btn" onclick="downloadResumeMarkdown()">
+                      <i class="fas fa-file-code"></i>
+                      <span>[Download .MD]</span>
+                    </button>
+                    <button class="term-btn secondary" onclick="printResumePDF()">
+                      <i class="fas fa-print"></i>
+                      <span>[Print]</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Career Objective & Direct Connect Side Card -->
+              <div class="resume-side-card terminal-card" id="resume-side-card">
+                <div class="card-header">
+                  <span class="card-title"><i class="fas fa-bullseye"></i> CAREER OBJECTIVE & FOCUS</span>
+                  <span class="card-sub">VISION</span>
+                </div>
+                
+                <div class="objective-card-body" style="padding: 1.1rem; display:flex; flex-direction:column; gap:1rem; height:100%;">
+                  <div class="objective-statement-box" style="background: rgba(2, 132, 199, 0.08); border-left: 3px solid var(--term-cyan); padding: 0.8rem; border-radius: 4px;">
+                    <div style="font-size: 11px; font-weight: 700; color: var(--term-cyan); margin-bottom: 3px; display:flex; align-items:center; gap:5px;">
+                      <i class="fas fa-compass"></i> PRIMARY ENGINEERING TARGET
+                    </div>
+                    <h4 style="font-size: 13px; color: #ffffff; margin-bottom: 4px; font-weight: 700;">Full-Stack Developer &bull; Cloud Infrastructure &bull; AI Specialist</h4>
+                    <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+                      Dedicated to engineering scalable full-stack web architectures, optimizing distributed data pipelines, and building responsive digital products that solve complex real-world challenges.
+                    </p>
+                  </div>
+
+                  <div class="objective-pillars-grid" style="display:flex; flex-direction:column; gap:0.7rem;">
+                    <div style="display:flex; gap:9px; align-items:flex-start;">
+                      <i class="fas fa-bolt" style="color: var(--term-amber); margin-top:2px; font-size:13px;"></i>
+                      <div>
+                        <strong style="font-size:12px; color:#ffffff; display:block;">Availability & Momentum</strong>
+                        <span style="font-size:11.5px; color:var(--text-muted);">Available for high-impact software internships and full-time technical roles with rapid onboarding.</span>
+                      </div>
+                    </div>
+
+                    <div style="display:flex; gap:9px; align-items:flex-start;">
+                      <i class="fas fa-layer-group" style="color: var(--term-cyan); margin-top:2px; font-size:13px;"></i>
+                      <div>
+                        <strong style="font-size:12px; color:#ffffff; display:block;">Full-Stack & Systems Precision</strong>
+                        <span style="font-size:11.5px; color:var(--text-muted);">Solid mastery in Python, Java OOP, SQL relational design, and sub-100ms IoT telemetry.</span>
+                      </div>
+                    </div>
+
+                    <div style="display:flex; gap:9px; align-items:flex-start;">
+                      <i class="fas fa-code" style="color: var(--term-green); margin-top:2px; font-size:13px;"></i>
+                      <div>
+                        <strong style="font-size:12px; color:#ffffff; display:block;">Student Portal Developer & Top 5% Ranker</strong>
+                        <span style="font-size:11.5px; color:var(--text-muted);">PSG Polytechnic College 92.8% Diploma Ranker & 100+ LeetCode DSA problems solved.</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="margin-top:auto; padding-top:10px;">
+                    <button class="term-btn highlight full-width clickable-jump" data-target="10" style="text-align:center; justify-content:center;">
+                      <i class="fas fa-paper-plane"></i>
+                      <span>[→ Open Direct Contact Channels]</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             PAGE 10: CONTACT & DIRECT COMMUNICATION CHANNELS
+             =================================================================== -->
+        <section class="page" id="page-10" data-page-num="10">
+          <div class="page-inner">
+            <div class="section-tag">[10/10] CONTACT & DIRECT CHANNELS // GET IN TOUCH</div>
+            <div class="contact-grid">
+              
+              <!-- Clean Contact Form -->
+              <div class="contact-terminal-box terminal-card">
+                <div class="card-header">
+                  <span class="card-title"><i class="fas fa-envelope"></i> Send a Message</span>
+                  <span class="card-sub">DIRECT INBOX</span>
+                </div>
+                
+                <div class="cli-form-header">
+                  Have an internship, full-time opportunity, or engineering project in mind?<br>
+                  Send a message directly and I will respond promptly:
+                </div>
+
+                <form id="contact-form" onsubmit="handleFormSubmit(event)">
+                  <div class="cli-input-row">
+                    <span class="cli-prompt-label">Your Name:</span>
+                    <input type="text" id="form-name" class="cli-field-input" placeholder="Your Full Name or Organization" required>
+                  </div>
+
+                  <div class="cli-input-row">
+                    <span class="cli-prompt-label">Email Address:</span>
+                    <input type="email" id="form-email" class="cli-field-input" placeholder="your.email@example.com" required>
+                  </div>
+
+                  <div class="cli-input-row">
+                    <span class="cli-prompt-label">Message:</span>
+                    <textarea id="form-message" class="cli-field-input cli-textarea" placeholder="Write your opportunity, question, or project idea..." rows="3" required></textarea>
+                  </div>
+
+                  <div class="form-btn-row">
+                    <button type="submit" class="term-btn highlight" id="send-msg-btn">
+                      <span>[→ Send Message]</span>
+                      <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <button type="button" class="term-btn secondary" onclick="clearContactForm()">
+                      <span>[Clear]</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Quick Connect Details & Direct Channels Hub -->
+              <div class="contact-quick-info">
+                <div class="info-snippet-card terminal-card contact-channels-card">
+                  <div class="card-header">
+                    <span class="card-title"><i class="fas fa-satellite-dish"></i> DIRECT_COMMUNICATION_CHANNELS</span>
+                    <span class="card-sub">[STATUS: VERIFIED]</span>
+                  </div>
+                  
+                  <div class="contact-links-list">
+                    <div class="info-line-item">
+                      <i class="fas fa-envelope"></i>
+                      <span>Email: <a href="mailto:akash.manokaran1@gmail.com">akash.manokaran1@gmail.com</a></span>
+                    </div>
+                    <div class="info-line-item">
+                      <i class="fab fa-github"></i>
+                      <span>GitHub: <a href="https://github.com/akashmanokaran1" target="_blank">github.com/akashmanokaran1</a></span>
+                    </div>
+                    <div class="info-line-item">
+                      <i class="fab fa-linkedin"></i>
+                      <span>LinkedIn: <a href="https://linkedin.com/in/akash-m-319b98343" target="_blank">linkedin.com/in/akash-m-319b98343</a></span>
+                    </div>
+                    <div class="info-line-item">
+                      <i class="fas fa-trophy"></i>
+                      <span>Unstop: <a href="https://unstop.com" target="_blank">unstop.com/@akashmanokaran1</a></span>
+                    </div>
+                    <div class="info-line-item">
+                      <i class="fas fa-location-dot"></i>
+                      <span>Location: <strong style="color:var(--term-green);">Coimbatore, Tamil Nadu, India</strong></span>
+                    </div>
+                  </div>
+
+                  <!-- Direct Connect Buttons Stack -->
+                  <div class="direct-channel-btn-stack">
+                    <a href="mailto:akash.manokaran1@gmail.com" class="term-btn highlight full-width" style="text-align:center; justify-content:center;">
+                      <i class="fas fa-envelope"></i>
+                      <span>[→ Email Akash Directly]</span>
+                    </a>
+                    <div style="display:flex; gap:8px;">
+                      <a href="https://linkedin.com/in/akash-m-319b98343" target="_blank" class="term-btn secondary" style="flex:1; justify-content:center;">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn</span>
+                      </a>
+                      <a href="https://github.com/akashmanokaran1" target="_blank" class="term-btn secondary" style="flex:1; justify-content:center;">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                      </a>
+                    </div>
+                    <a href="https://unstop.com" target="_blank" class="term-btn secondary full-width" style="text-align:center; justify-content:center;">
+                      <i class="fas fa-trophy"></i>
+                      <span>[→ Unstop Profile & Competitions]</span>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div> <!-- /.terminal-content -->
+
+      <!-- =====================================================================
+           BOTTOM CLI DOCK BAR (INSIDE WINDOW)
+           ===================================================================== -->
+      <footer class="bottom-cli-bar">
+        <div class="bottom-left-cli">
+          <span class="cli-user-tag">akash@terminal:~$</span>
+          <div class="cli-input-container">
+            <input 
+              type="text" 
+              id="global-cli-input" 
+              placeholder="exec command (e.g. whoami, tech_stack, proj1, cv, academics, contact)..." 
+              autocomplete="off" 
+              spellcheck="false"
+            >
+            <span class="cli-cursor"></span>
+          </div>
+        </div>
+
+        <div class="bottom-center-nav">
+          <button class="cli-nav-link active clickable-jump" data-target="1">boot</button>
+          <button class="cli-nav-link clickable-jump" data-target="2">whoami</button>
+          <button class="cli-nav-link clickable-jump" data-target="3">skills</button>
+          <button class="cli-nav-link clickable-jump" data-target="4">contrib</button>
+          <button class="cli-nav-link clickable-jump" data-target="5">projects</button>
+          <button class="cli-nav-link clickable-jump" data-target="9">resume</button>
+          <button class="cli-nav-link clickable-jump" data-target="10">contact</button>
+        </div>
+
+        <div class="bottom-right-welcome">
+          <div class="welcome-devs-badge">
+            <span class="ascii-smiley">(•‿•)</span>
+            <span class="text">Akash OS // SKCET</span>
+          </div>
+          
+          <div class="arrow-controls">
+            <button class="arrow-btn" id="prev-page-btn" title="Previous Section" aria-label="Previous Page">
+              <i class="fas fa-chevron-up"></i>
+            </button>
+            <button class="arrow-btn" id="next-page-btn" title="Next Section" aria-label="Next Page">
+              <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+        </div>
+      </footer>
+
+    </div> <!-- /.mac-window -->
+  </div> <!-- /.mac-window-wrapper -->
+
+  <!-- Minimized macOS Dock Icon -->
+  <div class="mac-minimized-dock" id="mac-dock-icon" title="Click to Restore macOS Terminal Window">
+    <i class="fas fa-terminal"></i>
+    <span>Terminal — Akash Manokaran</span>
+  </div>
+
+  <!-- Terminal Session Closed Overlay Modal -->
+  <div class="terminal-exit-modal" id="terminal-exit-modal">
+    <div class="exit-modal-box terminal-card">
+      <div class="card-header">
+        <span class="card-title">[PROCESS COMPLETED]</span>
+        <span class="card-sub">EXIT CODE 0</span>
+      </div>
+      <div class="exit-modal-body">
+        <p>Terminal session terminated.</p>
+        <p class="text-dim">Host [akash-macbook-pro] disconnected.</p>
+        <div class="exit-btn-row">
+          <button class="term-btn highlight" id="reboot-terminal-btn">
+            <span>[→ reboot session]</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Full Resume Modal (Fullscreen PDF Viewer) -->
+  <div class="resume-view-modal" id="resume-view-modal">
+    <div class="resume-modal-dialog resume-modal-pdf-mode">
+      <div class="resume-modal-header">
+        <span class="modal-title"><i class="fas fa-file-pdf"></i> AKASH_MANOKARAN_RESUME.pdf — Fullscreen Viewer</span>
+        <div style="display:flex; gap:8px;">
+          <a href="AKASH_MANOKARAN_RESUME.pdf" download="AKASH_MANOKARAN_RESUME.pdf" class="term-btn highlight">
+            <i class="fas fa-download"></i> Download PDF
+          </a>
+          <button class="term-btn" onclick="printResumePDF()">
+            <i class="fas fa-print"></i> Print
+          </button>
+          <button class="term-btn secondary" onclick="closeResumeModal()">[✕ Close]</button>
+        </div>
+      </div>
+      <div class="resume-modal-body resume-modal-pdf-body" id="modal-resume-body">
+        <iframe 
+          src="AKASH_MANOKARAN_RESUME.pdf" 
+          class="resume-modal-pdf-iframe"
+          id="modal-pdf-iframe"
+          title="Akash Manokaran Resume — Full Document"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Direct Dispatch Transmission Modal -->
+  <div class="dispatch-transmit-modal" id="dispatch-modal">
+    <div class="dispatch-modal-dialog terminal-card">
+      <div class="card-header">
+        <span class="card-title"><i class="fas fa-paper-plane"></i> COMMUNIQUE_TRANSMISSION // PASS OVER</span>
+        <button class="modal-close-btn" onclick="closeDispatchModal()" title="Close">✕</button>
+      </div>
+      <div class="dispatch-modal-body">
+        <div class="transmission-status-bar">
+          <span class="pulse-beacon"></span>
+          <span>TRANSMISSION PACKED &bull; DESTINATION: <strong style="color:#00FF00;">akash.manokaran1@gmail.com</strong></span>
+        </div>
+
+        <div class="dispatch-preview-box">
+          <div class="d-row"><span>FROM:</span> <strong id="disp-sender-name"></strong> &lt;<span id="disp-sender-email" style="color:var(--term-cyan);"></span>&gt;</div>
+          <div class="d-row"><span>TO:</span> <strong>akash.manokaran1@gmail.com</strong></div>
+          <div class="d-row"><span>SUBJECT:</span> <span id="disp-subject" style="color:#ffffff;"></span></div>
+          <div class="d-msg-preview" id="disp-message-body"></div>
+        </div>
+
+        <p class="dispatch-instructions">
+          Select an execution channel below to transmit directly to Akash's verified inbox:
+        </p>
+
+        <div class="dispatch-actions-grid">
+          <button class="term-btn highlight full-width" id="btn-dispatch-gmail" onclick="dispatchViaGmail()">
+            <i class="fab fa-google"></i>
+            <span>[→ pass over via gmail web (1-click)]</span>
+          </button>
+          
+          <button class="term-btn full-width" id="btn-dispatch-mailto" onclick="dispatchViaMailto()">
+            <i class="fas fa-envelope-open-text"></i>
+            <span>[→ launch default email app (mailto)]</span>
+          </button>
+
+          <button class="term-btn secondary full-width" onclick="copyDispatchPayload()">
+            <i class="fas fa-copy"></i>
+            <span>[→ copy payload & address to clipboard]</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       SPOTLIGHT PROJECT SEARCH & MULTI-TECH FINDER MODAL (⌘K / Ctrl+K)
+       ========================================================================= -->
+  <div class="spotlight-modal" id="spotlight-modal">
+    <div class="spotlight-dialog">
+      <div class="spotlight-header-bar">
+        <i class="fas fa-search spotlight-icon"></i>
+        <input 
+          type="text" 
+          id="spotlight-search-input" 
+          class="spotlight-search-field" 
+          placeholder="search projects... (e.g. Flutter, React 19, Unity, ARCore, FastAPI, Tailwind, Framer Motion, Lenis, MongoDB)..."
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <span class="spotlight-shortcut-tag">[ESC to Close]</span>
+      </div>
+
+      <!-- Quick Multi-Technology Filter Pills -->
+      <div class="spotlight-tags-container">
+        <div class="filter-tags-label">
+          <span><i class="fas fa-filter"></i> FILTER BY TECHNOLOGY STACK</span>
+          <span id="spotlight-active-tag-indicator">Selected: ALL</span>
+        </div>
+        <div class="tech-filter-pills-row" id="spotlight-tech-pills-row">
+          <!-- Dynamically populated / interactive tags -->
+        </div>
+      </div>
+
+      <div class="spotlight-count-bar">
+        <span>SHOWING <strong id="spotlight-count-num">9</strong> VERIFIED PROJECTS</span>
+        <span class="spotlight-tips">Click a project to inspect or jump</span>
+      </div>
+
+      <!-- Filtered Results Grid -->
+      <div class="spotlight-results-scroll" id="spotlight-results-container">
+        <!-- Dynamically rendered project cards -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Printable Hidden Resume Frame for Direct PDF / Print generation -->
+  <div id="printable-resume-frame" class="printable-resume-frame" style="display:none;"></div>
+
+  <!-- Firebase 10.7.1 Modular SDK & Firestore Connection -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // Akash Manokaran's Web App Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCSqJCwtNJ-jDuSqQn-CDXWbEzxCLXQ3As",
+      authDomain: "porfolio-a65e3.firebaseapp.com",
+      projectId: "porfolio-a65e3",
+      storageBucket: "porfolio-a65e3.firebasestorage.app",
+      messagingSenderId: "394051764001",
+      appId: "1:394051764001:web:03254ff54ef572a4b20860",
+      measurementId: "G-RX6GW6EJVK"
+    };
+
+    // Initialize Firebase Services
+    try {
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      let analytics = null;
+      try {
+        analytics = getAnalytics(app);
+      } catch (err) {
+        console.log("Firebase Analytics initialized in standard mode");
+      }
+
+      // Expose globally for contact dispatch and telemetry tracking
+      window.firebaseApp = app;
+      window.firestoreDb = db;
+      window.firebaseAnalytics = analytics;
+
+      window.saveMessageToFirestore = async function(recruiterName, recruiterEmail, message) {
+        console.log(`> [FIRESTORE] Transmitting recruiter message to 'recruiter_messages' collection...`);
+        try {
+          const docRef = await addDoc(collection(db, "recruiter_messages"), {
+            name: recruiterName,
+            email: recruiterEmail,
+            message: message,
+            timestamp: serverTimestamp(),
+            userAgent: navigator.userAgent,
+            portfolioVersion: "2.5.0"
+          });
+          console.log("> [FIRESTORE SUCCESS] Message saved with ID: ", docRef.id);
+          if (analytics) {
+            logEvent(analytics, 'contact_form_submitted', { sender_name: recruiterName });
+          }
+          return docRef.id;
+        } catch (e) {
+          console.error("> [FIRESTORE ERROR] Cloud write error, using offline store:", e);
+          return null;
+        }
+      };
+
+      console.log("> [FIREBASE SYSTEM] Initialized project 'porfolio-a65e3' with Firestore & Analytics.");
+    } catch (e) {
+      console.warn("Firebase initialization warning:", e);
+    }
+  </script>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
